@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+
+# .zshenv is used for environment variables
+# zshenv is always loaded - minimise its use
+
+
+# Load the XDG Directories that are always needed
+# XDG_CONFIG is needed for the zdotdir
+XDG_CONFIG_HOME="${HOME}/.config"
+
+# XDG_STATE is needed for the terminal sessions history etc.
+XDG_STATE_HOME="${HOME}/.local/state"
+
+# Set ZDOTDIR - allowing zprofile, zshrc and zlogin to be used from .config
+ZDOTDIR="${XDG_CONFIG_HOME}/zsh"

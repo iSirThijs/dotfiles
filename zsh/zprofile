@@ -1,0 +1,62 @@
+#!/usr/bin/env zsh
+
+# .zprofile - sets the environment for login shells before .zshrc
+# updates are reflected by having to log out and log back
+#
+# The macOS terminal.app opens both a login and interactive shell,
+#  any subsequent shells are only interactive
+
+# +--------------------+
+# | CUSTOM DIRECTORIES |
+# +--------------------+
+
+export DOTFILES="${HOME}/.dotfiles"
+export GIT_REPO_HOME="${HOME}/Repositories"
+mkdir -p ${GIT_REPO_HOME}
+
+# +-----------------+
+# | XDG DIRECTORIES |
+# +-----------------+
+
+# XDG Base Directory Spec sets a standard for applications for where to put files
+# rather than dumping files unceremoniously across the user's home directory.
+# Not all applications support or honor this
+# https://wiki.archlinux.org/title/XDG_Base_Directory - also has a list of support in apps
+
+# User specific configuration files
+export XDG_CONFIG_HOME
+
+# User-specific non-essential (cached) data
+export XDG_CACHE_HOME="${HOME}/.cache"
+mkdir -p ${XDG_CACHE_HOME}
+
+# User specific state files, like logs or history files.
+export XDG_STATE_HOME
+
+# User specific data in a form that the user doesn’t care about directly.
+export XDG_DATA_HOME="${HOME}/.local/share"
+mkdir -p ${XDG_DATA_HOME}
+
+# User-specific directory to store small temporary files
+export XDG_RUNTIME_DIR="${HOME}/.local/run"
+mkdir -p ${XDG_RUNTIME_DIR}
+
+# +------------------+
+# | DEFAULT PROGRAMS |
+# +------------------+
+
+# # Default programs
+export EDITOR="nano"
+export VISUAL="nano"
+
+# disable macOS terminal save/restore
+# needs to be disabled before .zshrc
+# https://superuser.com/questions/1610587/disable-zsh-session-folder-completely
+[[ $(uname) != "Darwin" ]] || export SHELL_SESSIONS_DISABLE=1
+
+# Load all files from .shell/zprofile.d directory
+if [ -d ${ZDOTDIR}/zprofile.d ]; then
+  for file in ${ZDOTDIR}/zprofile.d/*; do
+    source $file
+  done
+fi

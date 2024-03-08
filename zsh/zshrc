@@ -1,0 +1,95 @@
+#!/usr/bin/env zsh
+
+# .zshrc - This sets the environment for interactive shells
+# changes are reflected by opening a new terminal
+
+# +------------+
+# | NAVIGATION |
+# +------------+
+
+setopt AUTO_CD              # Go to folder path without using cd.
+setopt AUTO_PUSHD           # Push the old directory onto the stack on cd.
+setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
+setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
+setopt CORRECT              # Spelling correction
+setopt CDABLE_VARS          # Change directory to a path stored in a variable.
+setopt EXTENDED_GLOB        # Use extended globbing syntax.
+
+# +---------+
+# | HISTORY |
+# +---------+
+
+# make directory if not exists (-p)
+mkdir -p "${XDG_STATE_HOME}/zsh/sessions"
+
+export SHELL_SESSION_DIR="${XDG_STATE_HOME}/zsh/sessions"
+export SHELL_SESSION_FILE="${SHELL_SESSION_DIR}/${TERM_SESSION_ID}"
+export HISTFILE="${XDG_STATE_HOME}/zsh/history"
+export LESSHISTFILE="${XDG_STATE_HOME}"/less/history
+export HISTSIZE=10000                   # Maximum events for internal history
+export SAVEHIST=10000                   # Maximum events in history file
+
+setopt EXTENDED_HISTORY       # Write the history file in the ':start:elapsed;command' format.
+setopt SHARE_HISTORY          # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST # Expire a duplicate event first when trimming history.
+setopt HIST_IGNORE_DUPS       # Do not record an event that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS   # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_FIND_NO_DUPS      # Do not display a previously found event.
+setopt HIST_IGNORE_SPACE      # Do not record an event starting with a space.
+setopt HIST_SAVE_NO_DUPS      # Do not write a duplicate event to the history file.
+setopt HIST_VERIFY            # Do not execute immediately upon history expansion.
+
+# +------------+
+# | APPEARANCE |
+# +------------+
+
+export CLICOLOR=1
+# eval "$(gdircolors -b ${ZDOTDIR}/dircolors)"
+
+# +------------+
+# | COMPLETION |
+# +------------+
+
+source ${DOTFILES}/zsh/completion/init.zsh
+
+# +------------------+
+# | DEFAULT PROGRAMS |
+# +------------------+
+
+# Default programs
+export EDITOR="nano"
+export VISUAL="nano"
+
+# +---------------+
+# | POWERLEVEL10K |
+# +---------------+
+
+# TODO: this should not be in here - these ZSH dotfiles should work without requiring anything that needs an install on any OS/Device
+# # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
+# # Initialization code that may require console input (password prompts, [y/n]
+# # confirmations, etc.) must go above this block; everything else may go below.
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
+
+# source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
+
+# [[ ! -f ${ZSH_THEMES_DIR}/p10k.theme.zsh ]] || source ${ZSH_THEMES_DIR}/p10k.theme.zsh
+
+# +-------+
+# | OTHER |
+# +-------+
+
+# # Load all files from .shell/zshrc.d directory
+# if [ -d $HOME/.shellrc/zshrc.d ]; then
+#   for file in $HOME/.shellrc/zshrc.d/*.zsh; do
+#     source $file
+#   done
+# fi
+
+# # Load all files from .shell/rc.d directory
+# if [ -d $HOME/.shellrc/rc.d ]; then
+#   for file in $HOME/.shellrc/rc.d/*.sh; do
+#     source $file
+#   done
+# fi
