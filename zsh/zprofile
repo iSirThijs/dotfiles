@@ -10,7 +10,6 @@
 # | CUSTOM DIRECTORIES |
 # +--------------------+
 
-export DOTFILES="${HOME}/.dotfiles"
 export GIT_REPO_HOME="${HOME}/Repositories"
 mkdir -p ${GIT_REPO_HOME}
 
